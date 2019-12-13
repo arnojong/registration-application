@@ -1,0 +1,83 @@
+<div id="account-overview" v-cloak>
+  <div class="container">
+    <h1>Mijn documenten</h1>
+    <hr/>
+    <div class="row mb-3">
+      <div class="col-sm-6">
+        <h4>Document uploaden</h4>
+      </div>
+      <div class="col-sm-6">
+        <span class="float-sm-right">
+          <!-- <input type="file" name="file" id="file" class="inputfile">
+          <label class="btn btn-sm btn-outline-info account-settings-button" for="file">Kies een bestand</label> -->
+          <form enctype="multipart/form-data" method="post" action="/file/upload">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            <select name="name">
+              <option value="" selected="selected" hidden="hidden">Kies hier welk document je wilt uploaden</option>
+              <option value="amarokFamiliarizationFile">Amarok Familiarisatie</option>
+              <option value="personalAppealListFile">Persoonlijke appèllijst</option>
+              <option value="VRAFile">VRA</option>
+              <option value="BPBBFile">Brandpreventie en brandbestrijding</option>
+              <option value="CBRNFile">CBRN</option>
+              <option value="HPGFile">HPG</option>
+              <option value="ZHKHFile">ZHKH</option>
+              <option value="PWColtFile">Persoonlijk wapen Colt</option>
+              <option value="SAAAWFile">Search Aware & Ammunition Awareness</option>
+              <option value="MRFile">Militair recht</option>
+              <option value="NIFile">Nationale Inzet</option>
+              <option value="PPFile">Predicitive Profiling</option>
+              <option value="ADRFile">ADR</option>
+            </select>
+            <input type="file" name="document" multiple="multiple"><br>
+            <input type="submit" value="Upload">
+          </form>
+        </span>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-6" style="display: flex; flex-direction: column;">
+        <h4>Mijn documenten</h4>
+        <% if(me.amarokFamiliarizationFile) { %>
+        <a href="file://<%= me.amarokFamiliarizationFile %>">Amarok Familiarisatie</a>
+        <% } %>
+        <% if(me.personalAppealListFile) { %>
+        <a href="file://<%= me.personalAppealListFile %>">Persoonlijke appèllijst</a>
+        <% } %>
+        <% if(me.VRAFile) { %>
+        <a href="file://<%= me.VRAFile %>">VRA</a>
+        <% } %>
+        <% if(me.BPBBFile) { %>
+        <a href="file://<%= me.BPBBFile %>">Brandpreventie en brandbestrijding</a>
+        <% } %>
+        <% if(me.CBRNFile) { %>
+        <a href="file://<%= me.CBRNFile %>">CBRN</a>
+        <% } %>
+        <% if(me.HPGFile) { %>
+        <a href="file://<%= me.HPGFile %>">HPG</a>
+        <% } %>
+        <% if(me.ZHKHFile) { %>
+        <a href="file://<%= me.ZHKHFile %>">ZHKH</a>
+        <% } %>
+        <% if(me.PWColtFile) { %>
+        <a href="file://<%= me.PWColtFile %>">Persoonlijk wapen Colt</a>
+        <% } %>
+        <% if(me.SAAAWFile) { %>
+        <a href="file://<%= me.SAAAWFile %>">Search Aware & Ammunition Awareness</a>
+        <% } %>
+        <% if(me.MRFile) { %>
+        <a href="file://<%= me.MRFile %>">Militair recht</a>
+        <% } %>
+        <% if(me.NIFile) { %>
+        <a href="file://<%= me.NIFile %>">Nationale Inzet</a>
+        <% } %>
+        <% if(me.PPFile) { %>
+        <a href="file://<%= me.PPFile %>">Predictive Profiling</a>
+        <% } %>
+        <% if(me.ADRFile) { %>
+        <a href="file://<%= me.ADRFile %>">ADR</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

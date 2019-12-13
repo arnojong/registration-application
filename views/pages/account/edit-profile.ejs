@@ -1,0 +1,251 @@
+<div id="edit-profile" v-cloak>
+  <div class="container">
+    <h1>Persoonlijke informatie aanpassen</h1>
+    <hr/>
+    <ajax-form action="updateProfile" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm()" :handle-parsing="handleParsingForm">
+
+      <h3>Algemene informatie</h3>
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="full-name">Volledige naam</label>
+            <input class="form-control" id="full-name" name="full-name" type="text"  :class="[formErrors.fullName ? 'is-invalid' : '']" v-model.trim="formData.fullName" placeholder="Sturgis P. Sturgeon" autocomplete="name" focus-first>
+            <div class="invalid-feedback" v-if="formErrors.fullName">Please enter your full name.</div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="initials">Initialen</label>
+            <input class="form-control" id="initials" name="initials" type="text" v-model.trim="formData.initials">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="people-soft-number">PeopleSoft nummer</label>
+            <input class="form-control" id="people-soft-number" name="people-soft-number" type="text" pattern="[0-9]*" v-model.trim="formData.peopleSoftNumber">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="rank-registration-number">Rangregistratienummer</label>
+            <input class="form-control" id="rank-registration-number" name="rank-registration-number" type="text" pattern="[0-9]*" v-model.trim="formData.rankRegistrationNumber">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="rank">Rang</label>
+            <input class="form-control" id="rank" name="rank" type="text" v-model.trim="formData.rank">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="address">Adres</label>
+            <input class="form-control" id="address" name="address" type="text" v-model.trim="formData.address">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="postal-code">Postcode</label>
+            <input class="form-control" id="postal-code" name="postal-code" type="text" v-model.trim="formData.postalCode">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="hometown">Woonplaats</label>
+            <input class="form-control" id="hometown" name="hometown" type="text" v-model.trim="formData.hometown">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="birth-date">Geboortedatum</label>
+            <input class="form-control" id="birth-date" name="birth-date" type="date" v-model.trim="formData.birthDate">
+          </div>
+        </div>
+      </div>
+
+      <h3>Contactgegevens</h3>
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phone-number-1">Telefoonnummer</label>
+            <input class="form-control" id="phone-number-1" name="phone-number-1" type="text" pattern="[0-9]*" v-model.trim="formData.phoneNumber1">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phone-number-2">Extra telefoonummer</label>
+            <input class="form-control" id="phone-number-2" name="phone-number-2" type="text" pattern="[0-9]*" v-model.trim="formData.phoneNumber2">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email-address">E-mailadres</label>
+            <input class="form-control" id="email-address" name="email-address" type="email"  :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress" placeholder="sturgeon@example.com" autocomplete="email">
+            <div class="invalid-feedback" v-if="formErrors.emailAddress">Please enter a valid email address.</div>
+          </div>
+        </div>
+      </div>
+
+      <h5>Contact bij nood</h5>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="emergency-contact-name">Naam</label>
+            <input class="form-control" id="emergency-contact-name" name="emergency-contact-name" type="text" v-model.trim="formData.emergencyContactName">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="emergency-contact-number">Telefoonnummer</label>
+            <input class="form-control" id="emergency-contact-number" name="emergency-contact-number" type="text" pattern="[0-9]*" v-model.trim="formData.emergencyContactNumber">
+          </div>
+        </div>
+      </div>
+
+      <h3>Overige informatie</h3>
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <h5>Rijbewijzen</h5>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-a" type="checkbox" v-model="formData.driversLicenseA">
+              <label for="drivers-license-a" class="form-check-label">Rijbewijs A</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-am" type="checkbox" v-model="formData.driversLicenseAM">
+              <label for="drivers-license-am" class="form-check-label">Rijbewijs AM</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-b" type="checkbox" v-model="formData.driversLicenseB">
+              <label for="drivers-license-b" class="form-check-label">Rijbewijs B</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-c" type="checkbox" v-model="formData.driversLicenseC">
+              <label for="drivers-license-c" class="form-check-label">Rijbewijs C</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-d" type="checkbox" v-model="formData.driversLicenseD">
+              <label for="drivers-license-d" class="form-check-label">Rijbewijs D</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="drivers-license-e" type="checkbox" v-model="formData.driversLicenseE">
+              <label for="drivers-license-e" class="form-check-label">Rijbewijs E</label>
+          </div>
+          <h5>Diversen</h5>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="amarok-familiarization" type="checkbox" v-model="formData.amarokFamiliarization">
+              <label for="amarok-familiarization" class="form-check-label">Amarok familiarisatie</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <h5>E-learning modules</h5>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-bpbb" type="checkbox" v-model="formData.eModuleBPBB">
+              <label for="e-module-bpbb" class="form-check-label">Brandpreventie en brandbestrijding (BP_BB)</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-cbrn" type="checkbox" v-model="formData.eModuleCBRN">
+              <label for="e-module-cbrn" class="form-check-label">CBRN</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-hpg" type="checkbox" v-model="formData.eModuleHPG">
+              <label for="e-module-hpg" class="form-check-label">HPG</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-zhkh" type="checkbox" v-model="formData.eModuleZHKH">
+              <label for="e-module-zhkh" class="form-check-label">ZHKH</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-pwcolt" type="checkbox" v-model="formData.eModulePWColt">
+              <label for="e-module-pwcolt" class="form-check-label">Persoonlijk wapen Colt (PW Colt)</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-saaaw" type="checkbox" v-model="formData.eModuleSAAAW">
+              <label for="e-module-saaaw" class="form-check-label">Search Aware & Ammunition Awareness (SA_AAW)</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-mr" type="checkbox" v-model="formData.eModuleMR">
+              <label for="e-module-mr" class="form-check-label">Militair recht (MR)</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-ni" type="checkbox" v-model="formData.eModuleNI">
+              <label for="e-module-ni" class="form-check-label">Nationale Inzet (NI)</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-pp" type="checkbox" v-model="formData.eModulePP">
+              <label for="e-module-pp" class="form-check-label">Predictive Profiling</label>
+          </div>
+          <div class="form-group form-check">
+              <input class="form-check-input" id="e-module-adr" type="checkbox" v-model="formData.eModuleADR">
+              <label for="e-module-adr" class="form-check-label">ADR</label>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="arp-date">ARP (datum van certificaatuitreiking)</label>
+            <input class="form-control" id="arp-date" name="arp-date" type="date" v-model.trim="formData.ARPDate">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="stamina-test-date">Defensie conditieproef (datum van afleggen)</label>
+            <input class="form-control" id="stamina-test-date" name="stamina-test-date" type="date" v-model.trim="formData.staminaTestDate">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="swearing-in-date">Beëdiging (datum van afleggen)</label>
+            <input class="form-control" id="swearing-in-date" name="swearing-in-date" type="date" v-model.trim="formData.swearingInDate">
+          </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+              <label for="other">Overige opmerkingen/bijzonderheden</label>
+              <textarea class="form-control" id="other" name="other" v-model.trim="formData.other"></textarea>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="text-danger" v-if="cloudError === 'emailAlreadyInUse'">There is already an account using that email address.</p>
+          <p class="text-danger" v-else-if="cloudError">An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</p>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group text-right">
+            <a class="btn btn-outline-info" href="/account">Annuleren</a>
+            <ajax-button type="submit" :syncing="syncing" class="btn btn-dark">Opslaan</ajax-button>
+          </div>
+        </div>
+      </div>
+
+    </ajax-form>
+  </div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

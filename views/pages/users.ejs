@@ -1,0 +1,45 @@
+<div id="users" v-cloak>
+
+  <div class="container">
+
+    <div class="header-container">
+      <h1>Alle gebruikers</h1>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Naam</th>
+        <th>PeopleSoft nummer</th>
+        <th>Rang</th>
+        <th>Woonplaats</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user){ %>
+          <tr class="table-row" onclick="document.location = '/user/<%=user.id%>'">
+            <td><%= user.fullName%></td>
+            <td><%= user.peopleSoftNumber%></td>
+            <td><%= user.rank%></td>
+            <td><%= user.hometown%></td>
+            <% if(me.isSuperAdmin) {
+              if(me.id != user.id) {
+                if(user.isSuperAdmin) { %>
+                  <td><a href="/toggle-admin/<%=user.id%>">Ontneem rechten</a></td>
+                <% } else { %>
+                  <td><a href="/toggle-admin/<%=user.id%>">Verschaf rechten</a></td>
+                <% } %>
+              <% } else { %>
+                <td></td>
+              <% }
+            } %>
+          </tr>
+        <% })%>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

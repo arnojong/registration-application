@@ -1,0 +1,273 @@
+<div id="account-overview" v-cloak>
+    <div class="container">
+      <h1>Informatie van {{user.fullName}}</h1>
+      <hr/>
+      <div class="row mb-3">
+        <div class="col-sm-6">
+          <h4>Persoonlijke informatie</h4>
+        </div>
+        <div class="col-sm-6">
+          <span class="float-sm-right">
+            <a class="btn btn-sm btn-outline-info account-settings-button" href="/account/profile/<%=user.id%>">Informatie aanpassen</a>
+          </span>
+        </div>
+      </div>
+      <br>
+      <h6>Algemene informatie</h6>
+      <div class="row">
+        <div class="col-4">PeopleSoft nummer</div>
+        <div class="col"><strong>{{user.peopleSoftNumber}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Rangregistratienummer</div>
+        <div class="col"><strong>{{user.rankRegistrationNumber}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Rang</div>
+        <div class="col"><strong>{{user.rank}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Voorletters</div>
+        <div class="col"><strong>{{user.initials}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Naam</div>
+        <div class="col"><strong>{{user.fullName}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Adres</div>
+        <div class="col"><strong>{{user.address}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Postcode</div>
+        <div class="col"><strong>{{user.postalCode}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Woonplaats</div>
+        <div class="col"><strong>{{user.hometown}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Geboortedatum</div>
+        <div class="col"><strong>{{user.birthDate}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Telefoonnummer</div>
+        <div class="col"><strong>{{user.phoneNumber1}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Extra telefoonnummer</div>
+        <div class="col"><strong>{{user.phoneNumber2}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">E-mailadres</div>
+        <div class="col">
+          <strong :class="[user.emailStatus === 'unconfirmed' || user.emailStatus === 'change-requested' ? 'text-muted' : '']">{{user.emailChangeCandidate ? user.emailChangeCandidate : user.emailAddress}}</strong>
+          <span v-if="user.emailStatus === 'unconfirmed' || user.emailStatus === 'change-requested'" class="badge badge-pill badge-warning">Unverified</span>
+        </div>
+      </div>
+      <br>
+      <h6>Contact bij nood</h6>
+      <div class="row">
+        <div class="col-4">Naam</div>
+        <div class="col"><strong>{{user.emergencyContactName}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Telefoonnummer</div>
+        <div class="col"><strong>{{user.emergencyContactNumber}}</strong></div>
+      </div>
+      <br>
+      <h6>Overige informatie</h6>
+      <div class="row">
+        <div class="col-4">Rijbewijzen</div>
+        <div class="col"><strong>{{user.driversLicenses}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">E-learning modules</div>
+        <div class="col"><strong>{{user.eModules}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Amarok familiarisatie</div>
+        <div class="col"><strong><% if(user.amarokFamiliarization){%><%='Ja'%><%}else{%><%='Nee'%><%}%></strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">ARP</div>
+        <div class="col"><strong>{{user.ARPDate}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Beëdiging</div>
+        <div class="col"><strong>{{user.swearingInDate}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Defensie conditieproef</div>
+        <div class="col"><strong>{{user.staminaTestDate}}</strong></div>
+      </div>
+      <div class="row">
+        <div class="col-4">Overige opmerkingen/bijzonderheden</div>
+        <div class="col"><strong>{{user.other}}</strong></div>
+      </div>
+      <br>
+      <h6>Documenten</h6>
+      <% if(user.amarokFamiliarizationFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.amarokFamiliarizationFile %>">Amarok Familiarisatie</a></div>
+        <div class="col">{{user.amarokFamiliarizationStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.personalAppealListFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.personalAppealListFile %>">Persoonlijke appèllijst</a></div>
+        <div class="col">{{user.personalAppealListStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.VRAFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.VRAFile %>">VRA</a></div>
+        <div class="col">{{user.VRAStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.BPBBFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.BPBBFile %>">Brandpreventie en brandbestrijding</a></div>
+        <div class="col">{{user.BPBBStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.CBRNFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.CBRNFile %>">CBRN</a></div>
+        <div class="col">{{user.CBRNStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.HPGFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.HPGFile %>">HPG</a></div>
+        <div class="col">{{user.HPGStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.ZHKHFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.ZHKHFile %>">ZHKH</a></div>
+        <div class="col">{{user.ZHKHStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.PWColtFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.PWColtFile %>">Persoonlijk wapen Colt</a></div>
+        <div class="col">{{user.PWColtStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.SAAAWFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.SAAAWFile %>">Search Aware & Ammunition Awareness</a></div>
+        <div class="col">{{user.SAAAWStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.MRFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.MRFile %>">Militair recht</a></div>
+        <div class="col">{{user.MRStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.NIFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.NIFile %>">Nationale Inzet</a></div>
+        <div class="col">{{user.NIStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.PPFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.PPFile %>">Predictive Profiling</a></div>
+        <div class="col">{{user.PPStatus}}</div>
+      </div>
+      <% } %>
+      <% if(user.ADRFile) { %>
+      <div class="row">
+        <div class="col-4"><a href="file://<%= user.ADRFile %>">ADR</a></div>
+        <div class="col">{{user.ADRStatus}}</div>
+      </div>
+      <% } %>
+      <br>
+      <form method="post" action="/update-status/<%= user.id %>">
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+        <select name="name">
+          <option value="" selected="selected" hidden="hidden">Aan te passen document</option>
+          <option value="amarokFamiliarization">Amarok Familiarisatie</option>
+          <option value="personalAppealList">Persoonlijke appèllijst</option>
+          <option value="VRA">VRA</option>
+          <option value="BPBB">Brandpreventie en brandbestrijding</option>
+          <option value="CBRN">CBRN</option>
+          <option value="HPG">HPG</option>
+          <option value="ZHKH">ZHKH</option>
+          <option value="PWColt">Persoonlijk wapen Colt</option>
+          <option value="SAAAW">Search Aware & Ammunition Awareness</option>
+          <option value="MR">Militair recht</option>
+          <option value="NI">Nationale Inzet</option>
+          <option value="PP">Predicitive Profiling</option>
+          <option value="ADR">ADR</option>
+        </select>
+        <select name="status">
+          <option value="" selected="selected" hidden="hidden">Nieuwe status</option>
+          <option value="Ontvangen">Ontvangen</option>
+          <option value="Verwerkt">Verwerkt</option>
+          <option value="Goedgekeurd">Goedgekeurd</option>
+          <option value="Afgekeurd">Afgekeurd</option>
+        </select>
+        <input type="submit" value="Update documentstatus">
+      </form>
+
+      <hr/>
+      <div class="row mb-3" v-if="isBillingEnabled">
+        <div class="col-sm-6">
+          <h4>Billing</h4>
+        </div>
+        <div class="col-sm-6">
+          <span class="float-sm-right">
+            <ajax-button :syncing="syncingOpenCheckout || syncingUpdateCard" class="btn btn-sm btn-outline-info account-settings-button" @click="clickStripeCheckoutButton()">
+              <span slot="syncing-state">
+                <span v-if="syncingOpenCheckout">Connecting...</span>
+                <span v-else>Updating...</span>
+              </span>
+              <span slot="default">{{ user.hasBillingCard ? 'Change card' : 'Add card' }}</span>
+            </ajax-button>
+          </span>
+        </div>
+      </div>
+      <div v-if="isBillingEnabled && user.hasBillingCard">
+        <div class="row">
+          <div class="col-3">Credit card:</div>
+          <div class="col">{{user.billingCardBrand}} ending in <strong>{{user.billingCardLast4}}</strong> <a class="remove-button ml-2" @click="clickRemoveCardButton()">Remove</a></div>
+        </div>
+        <div class="row">
+          <div class="col-3">Expiration:</div>
+          <div class="col">{{user.billingCardExpMonth}}/{{user.billingCardExpYear}}</div>
+        </div>
+      </div>
+      <div class="alert alert-danger" v-else-if="isBillingEnabled && cloudError">
+        There was an error updating your credit card information. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.
+      </div>
+      <div class="alert alert-secondary" v-else-if="isBillingEnabled">
+        You have not linked a payment source to your account. In order to access paid features, you'll need to provide your credit card information. (Don't worry: you will only be charged when you've reached the limit of your free plan.)
+      </div>
+    </div>
+
+    <% /* Confirm Remove Card Info Modal */ %>
+    <modal v-if="removeCardModalVisible" @close="closeRemoveCardModal()" v-cloak>
+      <div class="modal-header">
+        <h5 class="modal-title">Remove Card Info?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <ajax-form action="updateBillingCard" :syncing.sync="syncingRemoveCard" :cloud-error.sync="cloudError" :handle-parsing="handleParsingRemoveCardForm" @submitted="submittedRemoveCardForm()">
+        <div class="modal-body">
+          <p>Are you sure you want to remove your {{user.billingCardBrand}} ending in <strong>{{user.billingCardLast4}}</strong>?</p>
+          <p class="text-muted">This may restrict your access to paid features.</p>
+          <p class="text-danger" v-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+          <ajax-button type="submit" :syncing="syncingRemoveCard" class="btn btn-danger ml-1">Remove</ajax-button>
+        </div>
+      </ajax-form>
+    </modal>
+  </div>
+  <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
